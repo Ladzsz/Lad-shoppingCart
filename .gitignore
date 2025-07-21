@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Env files
+.env
+.env.*.local
+
+# Test coverage (if you ever use Jest or Vitest)
+coverage/
