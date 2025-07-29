@@ -1,14 +1,34 @@
-import { useState } from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './components/homepage/homepage';
 import Header from './components/header';
 import Footer from './components/footer';
 import Navbar from './components/navbar';
 import ShopPage from './components/shopPage/shopPage';
-
 import './App.css'
+import { useState } from 'react';
 
 function App() {
+//setting state
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (product, quantity) => {
+    if (quantity <= 0) return; // don't add 0-quantity items
+
+    setCartItems(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
+        // Update quantity if already in cart
+        return prev.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      } else {
+        return [...prev, { ...product, quantity }];
+      }
+    });
+  };
 
   const styles = {
     container: {
@@ -26,11 +46,11 @@ function App() {
     <Router>
       <div style={styles.container}>
         <Header />
-        <Navbar />
+        <Navbar cartItems={cartItems} />
         <main style={styles.content}>
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/shop" element={<ShopPage addToCart={addToCart} />} />
           </Routes>
         </main>
         <Footer />
