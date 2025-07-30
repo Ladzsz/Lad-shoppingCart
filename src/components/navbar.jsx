@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar = ( { cartItems } ) => {
+const Navbar = ( { cartItems, clearCart } ) => {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const styles = {
@@ -11,6 +11,8 @@ const Navbar = ( { cartItems } ) => {
       display: 'flex',
       justifyContent: 'space-evenly',
       alignItems: 'center',
+      flexWrap: 'wrap',
+      gap: '1rem'
     },
     link: {
       color: 'white',
@@ -36,6 +38,8 @@ const Navbar = ( { cartItems } ) => {
       <Link to="/shop" style={styles.link}>Shop</Link>
 
       <button style={styles.button}>checkout: {totalItems}</button>
+      <button style={styles.button} onClick={clearCart}>Clear cart</button>
+
     </nav>
   );
 };

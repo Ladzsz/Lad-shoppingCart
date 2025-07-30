@@ -12,6 +12,7 @@ function App() {
 //setting state
   const [cartItems, setCartItems] = useState([]);
 
+  //method to add to cart
   const addToCart = (product, quantity) => {
     if (quantity <= 0) return; // don't add 0-quantity items
 
@@ -30,6 +31,11 @@ function App() {
     });
   };
 
+  //method to clear cart
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const styles = {
     container: {
       display: 'flex',
@@ -46,7 +52,7 @@ function App() {
     <Router>
       <div style={styles.container}>
         <Header />
-        <Navbar cartItems={cartItems} />
+        <Navbar cartItems={cartItems} clearCart={clearCart} />
         <main style={styles.content}>
           <Routes>
             <Route path="/" element={<Homepage />} />
