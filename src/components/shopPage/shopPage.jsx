@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import shoppingCartGif from '../../assets/shopping-cart.gif';
 
 const ProductCard = ({ product, addToCart }) => {
   //setting quanitiy states
@@ -70,8 +71,33 @@ const ShopPage = ({ addToCart }) => {
       });
   }, []);
 
-  //loading
-  if (loading) return <p>Loading products...</p>;
+  //loading gif styles
+  const styles = {
+    gif: {
+      width: '400px',
+      height: 'auto',
+    },
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',   
+      alignItems: 'center',   
+    },
+    loadingtxt: {
+      textAlign: 'center'
+    }
+  }
+
+  //loading screen
+  if (loading) return (
+    <>
+      <div style={styles.container}>
+        <img src={shoppingCartGif} alt="Animated shopping cart" style={styles.gif} />
+      </div>
+
+      <h4 style={styles.loadingtxt}>Shopping....</h4>
+    </>
+);
 
   //mapping out the cards
   return (
